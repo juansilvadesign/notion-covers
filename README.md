@@ -2,6 +2,8 @@
 
 A simplified, offline version of the Dynamic Notion Covers generator. This terminal-based application creates beautiful cover images for your Notion pages without requiring any external APIs or internet connection.
 
+![Project's Cover](https://i.ibb.co/GvDP7R11/book-recommendation-dark-1.webp)
+
 ## 🚀 Features
 
 - **100% Offline** - No internet connection required
