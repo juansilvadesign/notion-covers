@@ -28,6 +28,26 @@ class ImageGenerator:
         except:
             return ImageFont.load_default()
     
+    def get_unique_filename(self, base_filename):
+        """Generate a unique filename by adding a counter if file already exists"""
+        filepath = os.path.join(self.output_dir, base_filename)
+        
+        # If the file doesn't exist, return the original filename
+        if not os.path.exists(filepath):
+            return base_filename
+        
+        # Extract name and extension
+        name, ext = os.path.splitext(base_filename)
+        counter = 1
+        
+        # Keep incrementing counter until we find a non-existing filename
+        while True:
+            new_filename = f"{name} ({counter}){ext}"
+            new_filepath = os.path.join(self.output_dir, new_filename)
+            if not os.path.exists(new_filepath):
+                return new_filename
+            counter += 1
+    
     def create_gradient_background(self, color1, color2):
         """Create a simple gradient background"""
         image = Image.new('RGB', (self.width, self.height), color1)
@@ -102,8 +122,9 @@ class ImageGenerator:
         draw.text((attr_x, attr_y), attribution, font=font_small, fill=accent_color)
         
         # Save image
-        filename = f"stoic_quote_{theme}.png"
-        filepath = os.path.join(self.output_dir, filename)
+        base_filename = f"stoic_quote_{theme}.png"
+        unique_filename = self.get_unique_filename(base_filename)
+        filepath = os.path.join(self.output_dir, unique_filename)
         image.save(filepath)
         print(f"✓ Stoic quote image saved: {filepath}")
         return filepath
@@ -160,8 +181,9 @@ class ImageGenerator:
         draw.text((anime_x, anime_y), anime_text, font=font_anime, fill=anime_color)
         
         # Save image
-        filename = "anime_quote.png"
-        filepath = os.path.join(self.output_dir, filename)
+        base_filename = "anime_quote.png"
+        unique_filename = self.get_unique_filename(base_filename)
+        filepath = os.path.join(self.output_dir, unique_filename)
         image.save(filepath)
         print(f"✓ Anime quote image saved: {filepath}")
         return filepath
@@ -225,8 +247,9 @@ class ImageGenerator:
         draw.text((year_x, year_y), f"Published: {book['year']}", font=font_year, fill=accent_color)
         
         # Save image
-        filename = f"book_recommendation_{theme}.png"
-        filepath = os.path.join(self.output_dir, filename)
+        base_filename = f"book_recommendation_{theme}.png"
+        unique_filename = self.get_unique_filename(base_filename)
+        filepath = os.path.join(self.output_dir, unique_filename)
         image.save(filepath)
         print(f"✓ Book recommendation image saved: {filepath}")
         return filepath
@@ -297,8 +320,9 @@ class ImageGenerator:
         draw.text((days_x, 400), days_text, font=font_medium, fill=text_color)
         
         # Save image
-        filename = f"year_progress_{theme}.png"
-        filepath = os.path.join(self.output_dir, filename)
+        base_filename = f"year_progress_{theme}.png"
+        unique_filename = self.get_unique_filename(base_filename)
+        filepath = os.path.join(self.output_dir, unique_filename)
         image.save(filepath)
         print(f"✓ Year progress image saved: {filepath}")
         return filepath
@@ -375,8 +399,9 @@ class ImageGenerator:
         draw.text((info_x, 380), info_text, font=font_small, fill=text_color)
         
         # Save image
-        filename = f"life_progress_{theme}.png"
-        filepath = os.path.join(self.output_dir, filename)
+        base_filename = f"life_progress_{theme}.png"
+        unique_filename = self.get_unique_filename(base_filename)
+        filepath = os.path.join(self.output_dir, unique_filename)
         image.save(filepath)
         print(f"✓ Life progress image saved: {filepath}")
         return filepath
@@ -415,8 +440,9 @@ class ImageGenerator:
             draw.text((x, y), line, font=font, fill=text_color)
         
         # Save image
-        filename = f"motivational_text_{theme}.png"
-        filepath = os.path.join(self.output_dir, filename)
+        base_filename = f"motivational_text_{theme}.png"
+        unique_filename = self.get_unique_filename(base_filename)
+        filepath = os.path.join(self.output_dir, unique_filename)
         image.save(filepath)
         print(f"✓ Motivational text image saved: {filepath}")
         return filepath
